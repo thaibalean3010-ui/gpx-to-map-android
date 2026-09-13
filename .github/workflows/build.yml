@@ -26,6 +26,8 @@ jobs:
 
     - name: Build with Buildozer
       run: |
+        # Xóa cache buildozer cũ nếu có lỗi
+        rm -rf ~/.buildozer
         buildozer -v android debug
 
     - name: Upload APK artifact
