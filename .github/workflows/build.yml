@@ -12,23 +12,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.10'
-
-    - name: Install dependencies
-      run: |
-        sudo apt update
-        sudo apt install -y git zip unzip openjdk-17-jdk python3-pip python3-setuptools ccache libffi-dev libssl-dev python3-dev cython3
-        pip3 install --upgrade pip
-        pip3 install --upgrade buildozer
-
     - name: Build with Buildozer
-      run: |
-        # Xóa cache buildozer cũ nếu có lỗi
-        rm -rf ~/.buildozer
-        buildozer -v android debug
+      uses: ArtemSBulgakov/buildozer-action@v1
+      id: buildozer
+      with:
+        command: buildozer -v android debug
 
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
